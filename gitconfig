@@ -1,0 +1,21 @@
+#
+# ~/.gitconfig
+#
+
+[user]
+    name = Leslie I'Anson
+    email = leslieianson@users.noreply.github.com
+
+[credential]
+    helper = cache --timeout=2592000
+
+[core]
+    editor = vim
+    pager = less --raw-control-chars
+
+[color]
+    ui = auto
+    interactive = auto
+
+[alias]
+    diff = diff --color-words

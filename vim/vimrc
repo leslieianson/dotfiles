@@ -1,0 +1,264 @@
+"
+" ~/.vim/vimrc
+"
+
+" be iMproved
+set nocompatible
+
+" install vundle plugin manager
+" git clone https://github.com/gmarik/vundle.vim.git ~/.vim/bundle/vundle.vim
+"
+" vundle cheatsheet
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - installs (or updates) configured plugins
+" :PluginSearch(!) foo - (refresh cache) and search for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
+" :help vundle         - for more details
+
+" temporarily disable file type detection, which interferes with vundle
+filetype off
+
+" set the runtime path to include vundle and initialise
+set rtp+=~/.vim/bundle/vundle.vim
+call vundle#begin()
+
+" let vundle manage vundle
+Plugin 'gmarik/vundle.vim'
+
+" my plugins
+Plugin 'tpope/vim-sensible'
+Plugin 'chriskempson/base16-vim'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'tomasr/molokai'
+
+" end vundle block
+call vundle#end()
+
+" re-enable file type detection
+filetype plugin indent on
+
+" setup your terminal emulators and terminal multiplexers correctly!
+" :echo &term | :echo &t_Co
+"
+" vim colour test, also check terminal capabilities with 'tput colors' command
+" :runtime syntax/colortest.vim
+
+" vim will try to use colours that look good on a dark background
+set background=dark
+
+" load colour scheme {name}
+" searches 'runtimepath' for the file 'colors/{name}.vim', the first one that is
+" found is loaded
+" see readme files for extra colour scheme options
+let base16colorspace=256 | colorscheme base16-default
+"colorscheme jellybeans
+"colorscheme molokai
+
+" enable syntax highlighting
+syntax on
+
+" highlight the screen line of the cursor
+" useful to easily spot the cursor but will make screen redrawing slower
+set cursorline
+
+" a comma separated list of screen columns that are highlighted with ColorColumn
+" useful to align text but will make screen redrawing slower
+set colorcolumn=81
+
+" show last command on the last line of the screen
+set showcmd
+
+" when 'wildmenu' is on, command-line completion operates in an enhanced mode
+set wildmenu
+
+" when a bracket is inserted, briefly jump to the matching one
+" the jump is only done if the match can be seen on the screen
+set showmatch
+
+" ignore case in search patterns
+set ignorecase
+
+" override 'ignorecase' option if search pattern contains upper case characters
+set smartcase
+
+" while typing a search command, show where the pattern matches as it is typed
+set incsearch
+
+" when there is a previous search pattern, highlight all its matches
+set hlsearch
+
+" stop the highlighting for the 'hlsearch' option
+nnoremap <leader>/ :nohlsearch<cr>
+
+" searches wrap around the end of the file
+set wrapscan
+
+" write the contents of the file, if it has been modified, on each :next,
+" :rewind, :last, :first, :previous, :stop, :suspend, :tag, :!, :make, CTRL-]
+" and CTRL-^ command; and when a :buffer, CTRL-O, CTRL-I, '{A-Z0-9}, or
+" `{A-Z0-9} command takes one to another file
+set autowrite
+
+" set the title of the window
+set title
+
+" influences when the last window will have a status line
+" 0: never, 1: only if there are at least two windows, 2: always
+set laststatus=2
+
+" determines the content of the status line
+set statusline=%<%F\ %h%m%r%w\ %y[%{&ff}]%=%-14.(%l/%L,%c%V%)\ %P
+
+" maximum width of text that is being inserted
+" a longer line will be broken after white space to get this width
+set textwidth=0
+
+" number of characters from the right window border where wrapping starts
+" when typing text beyond this limit, an <eol> will be inserted and inserting
+" continues on the next line
+" when 'textwidth' is non-zero, this option is not used
+set wrapmargin=0
+
+" show tabs
+set list listchars=tab:→\ 
+
+" show tailing spaces
+set list listchars+=trail:·
+
+" show line endings
+"set list listchars+=eol:↵
+
+" the command :dig displays other digraphs you can use, see :help digraphs-use
+" for more information
+
+" disable text wrapping
+set nowrap
+
+" wrap long lines at a character in 'breakat' rather than at the last character
+" that fits on the screen
+" the linebreak setting will not work when the list setting is enabled
+set linebreak
+
+" toggle soft text wrapping with f5 key
+nmap <f5> :set wrap! linebreak nolist<cr>
+imap <f5> <c-o>:set wrap! linebreak nolist<cr>
+
+" move the cursor by display lines instead of numbered lines when text wrapping
+" is enabled
+nnoremap k gk
+nnoremap <up> gk
+vnoremap k gk
+vnoremap <up> gk
+inoremap <up> <c-o>gk
+nnoremap j gj
+nnoremap <down> gj
+vnoremap j gj
+vnoremap <down> gj
+inoremap <down> <c-o>gj
+
+" make scrolling horizontally more useful
+set sidescroll=6
+set listchars+=precedes:«,extends:»
+
+" precede each line with its line number
+set number
+
+" toggle line numbers with f6 key
+nmap <f6> :set number!<cr>
+imap <f6> <c-o>:set number!<cr>
+
+" do smart autoindenting when starting a new line
+set smartindent
+
+" set 'tabstop' and 'shiftwidth' to whatever you prefer and use 'expandtab'
+" this way you will always insert spaces and the formatting will never be messed
+" up when 'tabstop' is changed
+
+" the number of spaces a <tab> counts for when viewing
+set tabstop=4
+
+" the number of spaces a <tab> counts for when editing
+set softtabstop=4
+
+" number of spaces to use for each step of (auto)indent
+set shiftwidth=4
+
+" use the appropriate number of spaces to insert a <tab>
+set expandtab
+
+" when off the cursor is kept in the same column (if possible)
+set nostartofline
+
+" a comma separated list of word list names
+" when the 'spell' option is on spell checking will be done for these languages
+set spelllang=en_gb
+
+" switches on spell checking
+set spell
+
+" set the maximum number of spelling suggestions listed for z=
+set spellsuggest=6
+
+" toggle spelling with the f7
+nmap <f7> :set spell! <bar> :echon ":set spell=" . strpart("offon", 3 * &spell, 3) . " spelllang=" . &spelllang<cr>
+imap <f7> <c-o><f7>
+
+" underline spelling errors
+highlight SpellBad term=underline cterm=underline ctermfg=1
+highlight SpellCap term=underline cterm=underline
+highlight SpellRare term=underline cterm=underline
+highlight SpellLocal term=underline cterm=underline
+
+" key sequence that toggles the 'paste' option
+set pastetoggle=<f8>
+
+" enable folding
+set foldenable
+
+" the kind of folding used, i.e. fold based on indent level
+set foldmethod=indent
+
+" open most folds by default
+set foldlevelstart=10
+
+" space open/closes folds
+nnoremap <space> za
+
+" fine-grained undo
+" normally undo undoes your last action however, this breaks undo and starts a
+" new change after each <space>, <return> and <tab>, more can be added
+" see :help i_ctrl-g_u
+inoremap <space> <space><c-g>u
+inoremap <return> <return><c-g>u
+inoremap <tab> <tab><c-g>u
+
+" easier split navigation, default is ctrl+w, [hjkl]
+nmap <silent> <c-k> :wincmd k<cr>
+nmap <silent> <c-j> :wincmd j<cr>
+nmap <silent> <c-h> :wincmd h<cr>
+nmap <silent> <c-l> :wincmd l<cr>
+imap <silent> <c-k> <c-o>:wincmd k<cr>
+imap <silent> <c-j> <c-o>:wincmd j<cr>
+imap <silent> <c-h> <c-o>:wincmd h<cr>
+imap <silent> <c-l> <c-o>:wincmd l<cr>
+
+" jump to the last position when reopening a file
+autocmd BufReadPost *
+  \ if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" asciidoc support
+" http://asciidoc.org/userguide.html#X20
+autocmd BufRead,BufNewFile *.asciidoc
+  \ setlocal filetype=asciidoc
+  \ textwidth=80 wrap formatoptions=tcqn
+  \ formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\\|^\\s*<\\d\\+>\\s\\+\\\\|^\\s*[a-zA-Z.]\\.\\s\\+\\\\|^\\s*[ivxIVX]\\+\\.\\s\\+
+  \ comments=s1:/*,ex:*/,://,b:#,:%,:XCOMM,fb:-,fb:*,fb:+,fb:.,fb:>
+
+" save session
+nnoremap <leader>s :mksession<cr>
+
+" reformat paragraphs and lists
+nnoremap <leader>r gq}
+
+" delete trailing white space and dos-returns and expand tabs to spaces
+nnoremap <leader>d :set et<cr>:retab!<cr>:%s/[\r \t]\+$//<cr>

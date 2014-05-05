@@ -1,0 +1,53 @@
+#
+# ~/.inputrc
+#
+
+# include global inputrc for libreadline, which is ingored by default if one has
+# their own ~/.inputrc
+$include /etc/inputrc
+
+# don't ring the terminal bell
+set bell-style none
+
+# a single press of tab will produce a list of all possible completions (both
+# when a partial or no completion is possible)
+set show-all-if-ambiguous on
+
+# perform filename matching and completion in a case-insensitive fashion
+set completion-ignore-case on
+
+# if set to on, and completion-ignore-case is enabled, readline treats hyphens
+# and underscores as equivalent when performing case-insensitive filename
+# matching and completion
+set completion-map-case on
+
+# completed directory names have a slash appended
+set mark-directories on
+
+# don't append a slash to completed names which are symbolic links to
+# directories
+set mark-symlinked-directories off
+
+# tilde expansion is not performed when attempting word completion
+set expand-tilde off
+
+# a leading dot must be supplied to complete hidden files
+set match-hidden-files off
+
+# enable text wrapping
+set horizontal-scroll-mode off
+
+# controls default set of key bindings used, emacs or vi
+set editing-mode emacs
+
+# history completion bound to up and down arrow keys
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
+# quickly move between words using ctrl+left/right
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
